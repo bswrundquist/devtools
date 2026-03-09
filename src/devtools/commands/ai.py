@@ -8,7 +8,7 @@ from typing import Optional
 
 import typer
 
-from devtools.utils.paths import find_template_root
+from devtools.utils.paths import get_template_root
 from devtools.utils.sync import SyncResult, print_summary, sync_directory
 
 app = typer.Typer(help="AI tooling commands.", no_args_is_help=True)
@@ -66,7 +66,7 @@ def run_install(
 
     if user:
         effective_home = home_dir if home_dir is not None else Path.home()
-        src = template_root / "ai" / "claude" / "user" / ".claude"
+        src = template_root / "claude" / "user" / ".claude"
         dst = effective_home / ".claude"
         include = _make_filter(claude_md=claude_md, rules=False, skills=skills, agents=agents)
 
@@ -78,7 +78,7 @@ def run_install(
         results["user"] = result
 
     if repo:
-        src = template_root / "ai" / "claude" / "repo" / ".claude"
+        src = template_root / "claude" / "repo" / ".claude"
         dst = repo_root.resolve() / ".claude"
         include = _make_filter(claude_md=claude_md, rules=rules, skills=skills, agents=agents)
 
@@ -124,14 +124,8 @@ def install(
         typer.echo("Error: at least one of --user or --repo must be selected.", err=True)
         raise typer.Exit(1)
 
-    try:
-        template_root = find_template_root()
-    except FileNotFoundError as e:
-        typer.echo(f"Error: {e}", err=True)
-        raise typer.Exit(1)
-
     run_install(
-        template_root=template_root,
+        template_root=get_template_root(),
         user=user,
         repo=repo,
         claude_md=claude_md,

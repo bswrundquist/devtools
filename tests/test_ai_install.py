@@ -7,7 +7,7 @@ from typer.testing import CliRunner
 
 from devtools.cli import app
 from devtools.commands.ai import run_install
-from devtools.utils.paths import find_template_root
+from devtools.utils.paths import get_template_root
 
 # ---------------------------------------------------------------------------
 # Fixtures
@@ -18,7 +18,7 @@ from devtools.utils.paths import find_template_root
 def template_root(tmp_path):
     """Minimal template directory matching the real ai/claude/ layout."""
     # User templates
-    user_dir = tmp_path / "ai" / "claude" / "user" / ".claude"
+    user_dir = tmp_path / "claude" / "user" / ".claude"
     user_dir.mkdir(parents=True)
     (user_dir / "CLAUDE.md").write_text("# User CLAUDE.md\n")
     skills = user_dir / "skills"
@@ -31,7 +31,7 @@ def template_root(tmp_path):
     (agents / "example_agent.md").write_text("# Example agent\n")
 
     # Repo templates
-    repo_dir = tmp_path / "ai" / "claude" / "repo" / ".claude"
+    repo_dir = tmp_path / "claude" / "repo" / ".claude"
     repo_dir.mkdir(parents=True)
     (repo_dir / "CLAUDE.md").write_text("# Repo CLAUDE.md\n")
     rules = repo_dir / "rules"
@@ -44,9 +44,6 @@ def template_root(tmp_path):
     repo_agents = repo_dir / "agents"
     repo_agents.mkdir()
     (repo_agents / ".gitkeep").write_text("")
-
-    # Needs pyproject.toml so find_template_root can locate it.
-    (tmp_path / "pyproject.toml").write_text("[project]\nname = 'test'\n")
 
     return tmp_path
 
@@ -330,10 +327,11 @@ def test_gitkeep_not_installed(template_root, tmp_path):
 # ---------------------------------------------------------------------------
 
 
-def test_template_root_not_found(tmp_path):
-    # Pass _search_paths to suppress the module-location fallback.
-    with pytest.raises(FileNotFoundError, match="devtools repo"):
-        find_template_root(start=tmp_path, _search_paths=[tmp_path])
+def test_get_template_root_returns_existing_path():
+    root = get_template_root()
+    assert root.is_dir()
+    assert (root / "claude" / "user" / ".claude").is_dir()
+    assert (root / "claude" / "repo" / ".claude").is_dir()
 
 
 def test_neither_scope_exits_with_error():
