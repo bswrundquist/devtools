@@ -1,69 +1,93 @@
 ---
 name: readme-sync
-description: Use when loose markdown files have accumulated in the repo — notes, plans, analysis docs, summaries Claude left behind. Finds them, distills the relevant content, folds it into README.md cleanly, and removes the absorbed files.
+description: Use when AI-generated markdown files have accumulated in the repo from previous Claude Code sessions — plans, analyses, summaries, task lists left behind. Distills relevant content into README.md and deletes the AI artifacts. Never touches human-authored docs.
 tools: Glob, Read, Bash, Write, Edit
 ---
 
 # README Sync
 
-Find loose markdown files Claude has accumulated, extract what's still relevant, and consolidate it into a clean README.md. Delete the absorbed files.
+Find markdown files left behind by Claude Code during previous sessions, extract anything still worth keeping, fold it into README.md, and delete the AI artifacts. Never touch human-authored documentation.
 
 ## Process
 
-1. **Inventory** - Find all `.md` files in the repo. Exclude intentional docs (README.md, CHANGELOG.md, CONTRIBUTING.md, LICENSE.md, files inside `docs/`, `node_modules/`, `.git/`).
+1. **Inventory** - Find all `.md` files in the repo. Classify each as AI artifact or human doc (see below). Only process AI artifacts.
 2. **Read README** - Read the current README.md to understand existing structure and content.
-3. **Read loose files** - Read every candidate file fully. Note: file name, what it contains, when it seems to have been written, and whether the content is still relevant.
-4. **Distill** - For each loose file, decide:
-   - **Absorb**: content is useful and not already in README → extract key facts
-   - **Discard**: content is stale, redundant, obvious, or no longer true → skip it
-   - **Skip**: file is clearly intentional (e.g. a skill, a spec, a template) → leave it alone
-5. **Rewrite README** - Incorporate the absorbed content. Keep the README concise: every sentence should earn its place. Prefer bullet points and short sections over prose. Do not pad.
-6. **Delete absorbed files** - Remove the loose markdown files that were absorbed or discarded. Leave intentional docs untouched.
-7. **Report** - List what was absorbed, what was discarded, and what was left alone — with one-line reasons.
+3. **Read each AI artifact** - Read fully. For each, decide: absorb useful content, or discard entirely.
+4. **Rewrite README** - Fold in anything worth keeping. Keep it concise — every sentence earns its place.
+5. **Delete AI artifacts** - Remove all files classified as AI artifacts, whether absorbed or discarded.
+6. **Report** - List each file: classified as AI artifact or human doc, and what happened to it (absorbed / discarded / left alone).
 
-## What counts as a "loose" file
+## Classifying files
 
-Claude tends to leave behind files like:
-- `NOTES.md`, `PLAN.md`, `PLANNING.md`, `TODO.md`
-- `ANALYSIS.md`, `SUMMARY.md`, `ARCHITECTURE.md`, `DESIGN.md`
-- `CONTEXT.md`, `SCRATCH.md`, `RESEARCH.md`, `FINDINGS.md`
-- Anything with a date or session stamp in the name
-- Any `.md` file in the repo root that isn't a standard doc
+### AI artifacts — process these
+
+These are files Claude Code typically creates during a session:
+
+**By name pattern:**
+- `NOTES.md`, `PLAN.md`, `PLANNING.md`, `NEXT_STEPS.md`
+- `ANALYSIS.md`, `SUMMARY.md`, `FINDINGS.md`, `RESEARCH.md`
+- `TASKS.md`, `TODO.md`, `PROGRESS.md`, `STATUS.md`
+- `CONTEXT.md`, `SCRATCH.md`, `DESIGN.md`, `ARCHITECTURE.md`
+- `IMPLEMENTATION.md`, `PROPOSAL.md`, `REVIEW.md`
+- Anything with a date, timestamp, or session ID in the name
+
+**By content pattern:**
+- Starts with "I'll", "Let me", "Here's my plan", "Based on my analysis"
+- Contains task checklists with `- [ ]` or `- [x]` items
+- Reads like an internal monologue or step-by-step reasoning
+- Describes work that was going to be done (plans, proposals)
+- Contains a "Summary of changes" or "What I did" section
+
+**By location:**
+- In the repo root and clearly not a project convention
+- In a subdirectory alongside source files but unrelated to them
+
+### Human docs — never touch these
+
+- `README.md` (the target — only ever write to it, never delete)
+- `CHANGELOG.md`, `CHANGES.md`, `HISTORY.md`
+- `CONTRIBUTING.md`, `CONTRIBUTORS.md`
+- `LICENSE.md`, `LICENSE`
+- `SECURITY.md`, `CODE_OF_CONDUCT.md`
+- Anything inside `docs/`, `wiki/`, `.github/`
+- Files that read like they were written for an audience (tutorials, guides, references)
+- Any `.md` file that is part of the project's published documentation
+
+**When in doubt, leave it alone.** If a file could plausibly be intentional human documentation, don't touch it — mention it in the report as "unclear, left alone."
 
 ## What to absorb vs discard
 
 **Absorb** if the content:
-- Explains the project's purpose, architecture, or key design decisions
-- Describes how to install, run, or use the project
-- Documents non-obvious conventions, constraints, or trade-offs
-- Lists commands, environment variables, or config that a developer would need
+- Explains a non-obvious architectural decision or constraint
+- Documents how to install, run, or configure the project
+- Lists commands, options, or environment variables a developer would need
+- Describes a design trade-off that isn't obvious from the code
 
 **Discard** if the content:
-- Is a task list for work that's already done
+- Is a task list for work that's already been done
 - Describes a plan that was already executed
-- Duplicates what's already in README or code comments
-- Is speculative ("we might want to...") with no clear decision
-- Is a scratchpad or exploration that led nowhere
+- Is speculative or exploratory without a clear conclusion
+- Duplicates what's already in README or the code itself
+- Is Claude's internal reasoning (e.g., "I need to first understand X, then...")
 
 ## README structure
 
-After absorbing, the README should follow this order (include only sections that have real content):
+Incorporate absorbed content into the appropriate section. Maintain this order:
 
-1. **Project name + one-line description** (heading + tagline)
+1. **Project name + one-line description**
 2. **What it does** (2–5 bullets or a short paragraph)
-3. **Install / Quickstart** (the fastest path to using it)
-4. **Usage** (commands, options, examples — just the essential ones)
+3. **Install / Quickstart** (fastest path to running it)
+4. **Usage** (commands, options, examples — only the essential ones)
 5. **Architecture / How it works** (only if non-obvious; keep it short)
 6. **Configuration** (env vars, config files — if any)
 7. **Development** (how to run tests, contribute)
 
-Omit sections that would be empty or filler. Don't add sections just because they're conventional.
+Omit sections that have nothing real to say. Don't add filler.
 
 ## Rules
 
-- Write every line of the README as if a new engineer needs it on day one — cut anything they'd figure out in 30 seconds.
-- Never invent information. Only write what you can confirm from the absorbed files or the existing README.
-- Preserve any content in the current README that isn't covered by the absorbed files.
-- Do not delete files outside the repo root or `docs/` unless they are clearly session artifacts.
-- If unsure whether a file is intentional, leave it and mention it in the report.
-- After writing the README, delete the absorbed files — do not leave them behind.
+- **Never delete human docs.** The only files deleted are AI artifacts.
+- **Never invent.** Only write what's confirmed by the absorbed files or existing README.
+- **Preserve existing README content** that isn't superseded by absorbed material.
+- Write every line as if a new engineer needs it on day one.
+- If a file is ambiguous, leave it and flag it in the report.
