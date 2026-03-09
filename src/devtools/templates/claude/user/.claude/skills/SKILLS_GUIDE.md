@@ -14,6 +14,7 @@ You can type a slash command directly in the CLI:
 /commit
 /push
 /git-analyze
+/readme-sync
 /keybindings-help
 /airflow
 /sql
@@ -99,6 +100,27 @@ Simply describe what you want to do, and Claude will automatically invoke the re
 - "Push my changes"
 - "Push to remote"
 - "/push"
+
+---
+
+### readme-sync
+**Purpose**: Condense accumulated markdown files into a clean README.md
+
+**Use when:**
+- Loose `.md` files (NOTES.md, PLAN.md, ANALYSIS.md, etc.) have built up in the repo
+- The README is out of date or missing info that exists in scattered docs
+- The user says "clean up the docs", "update the readme", "consolidate markdown files"
+
+**Key principles:**
+- Reads all loose `.md` files and the current README
+- Absorbs relevant content, discards stale/redundant content
+- Rewrites README to be concise and useful — every line earns its place
+- Deletes the absorbed files after folding their content in
+
+**Examples:**
+- "Clean up the markdown files and update the readme"
+- "Consolidate my notes into the readme"
+- "/readme-sync"
 
 ---
 
