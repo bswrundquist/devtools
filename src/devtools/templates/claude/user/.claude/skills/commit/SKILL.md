@@ -15,6 +15,7 @@ Create well-structured git commits using the Conventional Commits specification.
    - Changes touch unrelated areas (e.g., a bug fix and a new feature)
    - There are distinct logical units of work (e.g., refactor + new behavior)
    - Tests were added/changed separately from the code they test (use judgment - if tightly coupled, commit together)
+   - Keep commits smaller and more concise and readable.
 3. **Stage and commit** - For each logical group, stage the relevant files and commit with a proper message.
 
 ## Conventional Commits Format
