@@ -1,0 +1,19 @@
+[package]
+name = "devtools"
+version = "0.1.0"
+edition = "2021"
+description = "Bootstrap developer machines from a single config file"
+
+[dependencies]
+anyhow = "1"
+clap = { version = "4", features = ["derive"] }
+serde = { version = "1", features = ["derive"] }
+toml = "0.8"
+walkdir = "2"
+include_dir = "0.7"
+dirs = "6"
+console = "0.15"
+
+[dev-dependencies]
+assert_cmd = "2"
+tempfile = "3"
