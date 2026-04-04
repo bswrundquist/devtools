@@ -8,3 +8,23 @@ dist/
 
 # Rust
 target/
+
+# Secrets & credentials
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+credentials.json
+service-account*.json
+*-credentials.json
+*.secret
+
+# OS
+.DS_Store
+Thumbs.db
+
+# direnv
+.direnv/
