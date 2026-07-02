@@ -1,34 +1,23 @@
-[project]
-name = "devtools"
-version = "0.1.0"
-description = "Developer tooling CLI."
-readme = "README.md"
-requires-python = ">=3.11"
-dependencies = [
-    "typer>=0.12",
-]
-
-[project.scripts]
-devtools = "devtools.cli:app"
-
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
+[project]
+name = "devtools"
+version = "1.0.0"
+description = "Version-controlled Claude Code config: skills, agents, and starter CLAUDE.md files, installed into ~/.claude"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.scripts]
+devtools = "devtools:main"
+
 [tool.hatch.build.targets.wheel]
 packages = ["src/devtools"]
 
-[dependency-groups]
-dev = [
-    "pytest>=8.0",
-    "ruff>=0.6",
-]
-
-[tool.ruff]
-line-length = 100
-
-[tool.ruff.lint]
-select = ["E", "F", "I"]
-
-[tool.pytest.ini_options]
-testpaths = ["tests"]
+# Ship the config alongside the code so `uvx --from git+...` has everything.
+[tool.hatch.build.targets.wheel.force-include]
+"skills" = "devtools/_data/skills"
+"agents" = "devtools/_data/agents"
+"templates" = "devtools/_data/templates"
