@@ -36,8 +36,8 @@ You can type a slash command directly in the CLI:
 /solution-design
 /implement
 /study-session
-/resolve-pr-comments
-/respond-pr-comments
+/pr-comments-resolve
+/pr-comments-respond
 /refactor-plan
 ```
 
@@ -586,9 +586,9 @@ issue/epic (GitHub · GitLab · Jira)
    │        │
    │        ▼  (PR/MR opened, review happens)
    │
-   ├─ /resolve-pr-comments →  plan: fix / push back / reply-only
+   ├─ /pr-comments-resolve →  plan: fix / push back / reply-only
    │        ├─ /implement            →  apply the fixes
-   │        └─ /respond-pr-comments  →  draft + post replies
+   │        └─ /pr-comments-respond  →  draft + post replies
    │
    ├─ /refactor-plan       →  behavior-preserving refactor in validatable steps → /implement
    └─ /study-session       →  digest a docs corpus: map, gaps, reading order
@@ -663,7 +663,7 @@ issue/epic (GitHub · GitLab · Jira)
 
 ---
 
-### resolve-pr-comments
+### pr-comments-resolve
 **Purpose**: Collect all review comments on a PR/MR and produce a resolution plan
 
 **Arguments**: `<PR/MR number or URL>` — or nothing, to infer from the current branch.
@@ -672,15 +672,15 @@ issue/epic (GitHub · GitLab · Jira)
 - Fetches inline threads with resolved/outdated state (GitHub GraphQL, GitLab discussions API)
 - Classifies: must-fix / improve / question / push back / follow-up / already addressed
 - Checks each comment against current code — doesn't plan fixes for things already fixed
-- Read-only: hands off to `/implement` (fixes) and `/respond-pr-comments` (replies)
+- Read-only: hands off to `/implement` (fixes) and `/pr-comments-respond` (replies)
 
 **Examples:**
 - "What do the reviewers want on MR 87? Make a plan."
-- "/resolve-pr-comments 123"
+- "/pr-comments-resolve 123"
 
 ---
 
-### respond-pr-comments
+### pr-comments-respond
 **Purpose**: Draft and post concise replies to PR/MR review comments
 
 **Arguments**: `<PR/MR number or URL> [--post]`
@@ -693,7 +693,7 @@ issue/epic (GitHub · GitLab · Jira)
 
 **Examples:**
 - "Draft replies to the comments on PR 123"
-- "/respond-pr-comments 123 --post"
+- "/pr-comments-respond 123 --post"
 
 ---
 

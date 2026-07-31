@@ -1,5 +1,5 @@
 ---
-name: respond-pr-comments
+name: pr-comments-respond
 description: Use when the user wants to reply to PR/MR review comments — drafts concise responses that fully answer each comment and let reviewers verify what changed, then posts them only after approval.
 tools: Bash, Read, Grep, Glob
 argument-hint: <PR/MR number or URL> [--post]
@@ -19,7 +19,7 @@ Draft and post replies to review comments. Each reply is concise, fully answers 
 
 ### 1. Fetch unresolved comments
 
-Same commands as `/resolve-pr-comments` — but keep the **thread/discussion and comment IDs**; they're needed for posting.
+Same commands as `/pr-comments-resolve` — but keep the **thread/discussion and comment IDs**; they're needed for posting.
 
 ```bash
 # GitHub: inline threads with IDs
@@ -92,4 +92,4 @@ glab mr note 123 -m "..."
 - Reply in the thread the comment lives in, not as a top-level comment — reviewers follow threads.
 - Only resolve threads whose fix you can point at, and only if the team's convention is author-resolves; when unsure, reply and leave the thread open for the reviewer.
 - Match the repo's tone; concise is not curt.
-- If `/resolve-pr-comments` produced a plan in this conversation, use its sketched answers — don't re-derive from scratch.
+- If `/pr-comments-resolve` produced a plan in this conversation, use its sketched answers — don't re-derive from scratch.

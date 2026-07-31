@@ -1,5 +1,5 @@
 ---
-name: create-issue
+name: issue-create
 description: Use when the user wants to create a new issue, ticket, or bug report in GitHub, GitLab, or Jira from a plain description. Researches the tracker and codebase first so the draft is grounded, then ends with an acceptance criteria checklist meant to feed straight into /solution-design or /implement.
 tools: Bash, Read, Grep, Glob
 argument-hint: <description of the issue> [--project <repo or key>] [--create]
@@ -14,7 +14,7 @@ Turn a plain description into a well-formed issue in GitHub, GitLab, or Jira. Th
 `$ARGUMENTS` - a free-text description of the problem, bug, or request. Can be rough; turning it into something precise is the job.
 
 - `--project <repo or key>` - explicit target: `owner/repo` for GitHub/GitLab, a project key (e.g. `PLAT`) for Jira. Skips auto-detection.
-- `--create` - actually file the issue after drafting it. Without this flag, the skill only drafts and previews. Filing a ticket is visible to the whole team, so treat this the same as `respond-pr-comments --post`: the only standing approval.
+- `--create` - actually file the issue after drafting it. Without this flag, the skill only drafts and previews. Filing a ticket is visible to the whole team, so treat this the same as `pr-comments-respond --post`: the only standing approval.
 
 ## Process
 

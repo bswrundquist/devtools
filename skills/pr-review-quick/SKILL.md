@@ -1,5 +1,5 @@
 ---
-name: review-pr-quick
+name: pr-review-quick
 description: Use when the user asks for a quick or fast review of a pull request. A fast-pass PR review that surfaces only high-confidence bugs and security issues — no style notes, no nitpicks, minimal output.
 tools: Bash, Read, Grep, Glob
 ---
@@ -38,4 +38,4 @@ End with one line: **Looks safe to merge** or **N blocking issue(s) found**.
 - If uncertain about a finding, drop it. Only high-confidence issues.
 - No praise, no summary paragraphs, no padding. If clean, say "Looks safe to merge — no blocking issues" and stop.
 - If the PR is very large (>1500 lines), review the riskiest files only and say which files were skipped.
-- Suggest the full review-pr skill if the user wants depth.
+- Suggest the full pr-review skill if the user wants depth.

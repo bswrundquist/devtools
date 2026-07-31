@@ -1,6 +1,6 @@
 ---
-name: resolve-pr-comments
-description: Use when the user wants to collect the review comments on a PR/MR and turn them into a concrete resolution plan — what to fix, what to push back on, what only needs a reply. Planning only; pairs with /implement to apply fixes and /respond-pr-comments to reply.
+name: pr-comments-resolve
+description: Use when the user wants to collect the review comments on a PR/MR and turn them into a concrete resolution plan — what to fix, what to push back on, what only needs a reply. Planning only; pairs with /implement to apply fixes and /pr-comments-respond to reply.
 tools: Bash, Read, Grep, Glob, Agent
 argument-hint: <PR/MR number or URL>
 ---
@@ -91,7 +91,7 @@ Grouped, ordered changes where multiple comments collapse into one fix.
 Pushback and out-of-scope items to confirm with the user before anyone replies.
 ```
 
-End by offering the handoffs: `/implement` to apply the fixes, `/respond-pr-comments` to draft and post the replies.
+End by offering the handoffs: `/implement` to apply the fixes, `/pr-comments-respond` to draft and post the replies.
 
 ## Rules
 
@@ -99,5 +99,5 @@ End by offering the handoffs: `/implement` to apply the fixes, `/respond-pr-comm
 - Blind compliance is not a plan: if the reviewer is wrong, the plan is a respectful pushback with evidence (existing conventions, a benchmark, a counterexample), not a silent code change.
 - Every actionable row says how the fix will be validated, even if that's just "existing test X now covers it".
 - Check `isOutdated` / later commits before planning work — don't plan fixes for things already fixed.
-- Reply-only items get the intended answer sketched in the plan, so `/respond-pr-comments` isn't starting cold.
+- Reply-only items get the intended answer sketched in the plan, so `/pr-comments-respond` isn't starting cold.
 - If a comment is ambiguous, the plan for it is "clarify with <author>", not a guess.

@@ -1,5 +1,5 @@
 ---
-name: fix-pr
+name: pr-fix
 description: Use when the user wants to implement fixes for a PR review or PR review comments, not just plan them. Applies must-fix issues by default (should-fix and nitpicks on request), loops re-reviewing after each pass until the diff is actually clean, and replies to fixed comments with the commit sha once the user approves.
 tools: Bash, Read, Edit, Write, Grep, Glob, Agent
 argument-hint: <PR/MR number or URL, or nothing to use findings already in this conversation> [--should-fix] [--nitpicks] [--all]
@@ -7,14 +7,14 @@ argument-hint: <PR/MR number or URL, or nothing to use findings already in this 
 
 # Fix PR
 
-Take findings from a PR review or comments on a PR and actually fix them. This is the doing half of `/review-pr` and `/resolve-pr-comments`: those two produce a list of problems, this skill closes it out with real code changes, verified, not just marked done.
+Take findings from a PR review or comments on a PR and actually fix them. This is the doing half of `/pr-review` and `/pr-comments-resolve`: those two produce a list of problems, this skill closes it out with real code changes, verified, not just marked done.
 
 ## Arguments
 
 `$ARGUMENTS`
 
 - A PR/MR number or URL: fetch the diff and review comments fresh.
-- Nothing: use findings already produced in this conversation by `/review-pr`, `/review-pr-quick`, `/review-diff`, `/review-diff-quick`, or `/resolve-pr-comments`.
+- Nothing: use findings already produced in this conversation by `/pr-review`, `/pr-review-quick`, `/review-diff`, `/review-diff-quick`, or `/pr-comments-resolve`.
 - `--should-fix`: also fix 🟡 should-fix issues.
 - `--nitpicks`: also fix 🟢 nitpicks.
 - `--all`: fix everything regardless of severity.
@@ -47,7 +47,7 @@ gh api graphql -f query='
 
 GitLab: `glab mr view`, `glab mr diff`, `glab api projects/:id/merge_requests/<number>/discussions`.
 
-Run the actual review dimensions from `/review-pr` (or `/review-diff` for uncommitted work) against the diff. Classify PR comments the same way `/resolve-pr-comments` does: 🔴 must-fix, 🟠 improve, 💬 question, 🤝 push back, 📦 follow-up, ✅ already addressed. Only 🔴 must-fix and 🟠 improve items are candidates for a code fix. Questions, pushback, and follow-ups are out of scope here, leave those for `/respond-pr-comments` or for the user to answer directly.
+Run the actual review dimensions from `/pr-review` (or `/review-diff` for uncommitted work) against the diff. Classify PR comments the same way `/pr-comments-resolve` does: 🔴 must-fix, 🟠 improve, 💬 question, 🤝 push back, 📦 follow-up, ✅ already addressed. Only 🔴 must-fix and 🟠 improve items are candidates for a code fix. Questions, pushback, and follow-ups are out of scope here, leave those for `/pr-comments-respond` or for the user to answer directly.
 
 ### 2. Build the fix queue
 
@@ -74,13 +74,13 @@ Use `/commit` conventions: Conventional Commits, logical grouping, imperative mo
 
 ### 5. Reply to comments (only if the source included PR comments, and only with approval)
 
-For every comment whose issue got fixed, draft a reply in the style of `/respond-pr-comments`:
+For every comment whose issue got fixed, draft a reply in the style of `/pr-comments-respond`:
 
 > Fixed in `<sha>`: one line on what changed.
 
 Show every draft next to the comment it answers, along with the "in scope but not fixed" and "out of scope" lists, so the user sees the whole picture, not just the wins. Ask before posting anything.
 
-If approved, post the same way `/respond-pr-comments` does:
+If approved, post the same way `/pr-comments-respond` does:
 
 ```bash
 # GitHub: reply inside the thread
@@ -101,7 +101,7 @@ Resolve a thread only if that fix is genuinely complete and the team's conventio
 
 | # | Issue | Source | Status | Commit | Verified by |
 |---|-------|--------|--------|--------|--------------|
-| 1 | retry can double-charge | review-pr | fixed | `a1b2c3d` | new test `test_retry_idempotent`, 2 loop passes |
+| 1 | retry can double-charge | pr-review | fixed | `a1b2c3d` | new test `test_retry_idempotent`, 2 loop passes |
 | 2 | missing null check on webhook payload | comment (@priya) | fixed | `a1b2c3d` | existing test now covers it |
 | 3 | timeout hardcoded | comment (@sam) | blocked | none | needs a decision on the default value, see comment |
 

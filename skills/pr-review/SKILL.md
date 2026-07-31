@@ -1,5 +1,5 @@
 ---
-name: review-pr
+name: pr-review
 description: Use when the user asks to review a pull request. Fetches PR details and diff, then provides a structured code review covering correctness, security, performance, and style.
 tools: Bash, Read, Grep, Glob, Agent
 ---
