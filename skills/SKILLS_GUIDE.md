@@ -32,6 +32,7 @@ You can type a slash command directly in the CLI:
 /openapi-design
 /uv-setup
 /env-setup
+/issue-create
 /executive-summary
 /solution-design
 /implement
@@ -573,9 +574,14 @@ Simply describe what you want to do, and Claude will automatically invoke the re
 
 ## Issue → Ship Workflow
 
-Seven skills that chain together to take a ticket from tracker to merged PR:
+Eight skills that chain together to take a ticket from tracker to merged PR:
 
 ```
+description of a problem
+   │
+   ├─ /issue-create        →  grounded issue + acceptance criteria, filed to GitHub/GitLab/Jira
+   │
+   ▼
 issue/epic (GitHub · GitLab · Jira)
    │
    ├─ /executive-summary   →  1-2 paragraphs for stakeholders
@@ -593,6 +599,23 @@ issue/epic (GitHub · GitLab · Jira)
    ├─ /refactor-plan       →  behavior-preserving refactor in validatable steps → /implement
    └─ /study-session       →  digest a docs corpus: map, gaps, reading order
 ```
+
+---
+
+### issue-create
+**Purpose**: Turn a plain description into a well-formed issue in GitHub, GitLab, or Jira, ending with an acceptance criteria checklist
+
+**Arguments**: `<description of the issue> [--project <repo or key>] [--create]` — `--create` actually files it; without it, drafts and previews only.
+
+**Key principles:**
+- Checks for duplicates and reads the relevant code before drafting, so the issue isn't generic
+- Reuses the project's real labels, issue types, and assignees instead of inventing them
+- Acceptance criteria are independently checkable — the point is to be usable context for `/solution-design` or `/implement` next
+- Never files without `--create` or explicit confirmation
+
+**Examples:**
+- "Create a GitLab issue: the retry queue double-processes on timeout"
+- "/issue-create login times out after 30s on slow connections --create"
 
 ---
 

@@ -65,6 +65,13 @@ git diff   # review, then commit
 
 ## Add or edit a skill
 
+Name it `<object>-<action>` when it belongs to a family, so related skills
+autocomplete together: `pr-review`, `pr-fix`, `pr-comments-resolve`,
+`pr-comments-respond`, `issue-create`. Skills tied to a specific tool follow
+the same shape with the tool as the object: `pyspark-debug`, `dbt-write`,
+`terraform-write`. Standalone verbs with nothing to group with stay bare:
+`commit`, `push`.
+
 ```bash
 mkdir skills/my-skill
 $EDITOR skills/my-skill/SKILL.md
