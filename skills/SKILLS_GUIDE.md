@@ -40,6 +40,8 @@ You can type a slash command directly in the CLI:
 /pr-comments-resolve
 /pr-comments-respond
 /refactor-plan
+/standup-update
+/pipeline-status
 ```
 
 ### Agents (slash commands)
@@ -569,6 +571,40 @@ Simply describe what you want to do, and Claude will automatically invoke the re
 - "Set up pydantic-settings for my FastAPI app"
 - "How do I override settings in tests?"
 - "Create a .env.example for this project"
+
+---
+
+### standup-update
+**Purpose**: Turn recent git/PR/ticket activity into a three-bullet standup update — did, doing, blockers
+
+**Arguments**: `[since <day/date>] [extra context]` — defaults to since the last working day
+
+**Key principles:**
+- Bullets only, one line per item, ready to paste as-is
+- "None" is a valid answer for blockers — never padded to look busy
+- Only reports what git/the tracker actually shows; skips a source cleanly if its CLI isn't available
+- Doesn't post anywhere — output is for the user to paste themselves
+
+**Examples:**
+- "Give me my standup update"
+- "/standup-update since friday"
+
+---
+
+### pipeline-status
+**Purpose**: Point-in-time snapshot of what's currently running — Airflow, Kubernetes, batch/Spark/BigQuery jobs, alerts
+
+**Arguments**: `[airflow|k8s|jobs|all]` — defaults to all
+
+**Key principles:**
+- A status board, not an investigation — flags what needs attention and hands off to `/pipeline-triage`
+- States "all clear" explicitly for healthy sections rather than omitting them
+- Never guesses DAG names, namespaces, or job IDs — only reports what the CLI returns
+- Skips a section cleanly when its CLI isn't installed/authenticated
+
+**Examples:**
+- "What's the status of our pipelines right now?"
+- "/pipeline-status k8s"
 
 ---
 
