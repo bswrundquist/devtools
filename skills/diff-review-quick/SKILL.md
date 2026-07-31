@@ -1,5 +1,5 @@
 ---
-name: review-diff-quick
+name: diff-review-quick
 description: Use when the user wants a quick or fast check of their uncommitted or staged changes before committing. A fast-pass diff review that surfaces only high-confidence bugs and security issues — no style notes, no nitpicks, minimal output.
 tools: Bash, Read, Grep, Glob
 ---
@@ -37,4 +37,4 @@ End with one line: **Clean to commit** or **N issue(s) to fix first**.
 - Speed over completeness — this is a pre-commit smoke check, not an audit. Aim for under a minute of work.
 - If uncertain about a finding, drop it. Only high-confidence issues.
 - No praise, no summary paragraphs, no padding. If clean, say "Clean to commit" and stop.
-- Suggest the full review-diff skill if the user wants depth.
+- Suggest the full diff-review skill if the user wants depth.

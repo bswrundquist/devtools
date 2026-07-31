@@ -1,5 +1,5 @@
 ---
-name: review-diff
+name: diff-review
 description: Use when the user wants to review their uncommitted or staged changes before committing. A lightweight pre-commit code review that catches issues early — before they become PR comments.
 tools: Bash, Read, Grep, Glob
 ---

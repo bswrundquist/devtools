@@ -14,7 +14,7 @@ Take findings from a PR review or comments on a PR and actually fix them. This i
 `$ARGUMENTS`
 
 - A PR/MR number or URL: fetch the diff and review comments fresh.
-- Nothing: use findings already produced in this conversation by `/pr-review`, `/pr-review-quick`, `/review-diff`, `/review-diff-quick`, or `/pr-comments-resolve`.
+- Nothing: use findings already produced in this conversation by `/pr-review`, `/pr-review-quick`, `/diff-review`, `/diff-review-quick`, or `/pr-comments-resolve`.
 - `--should-fix`: also fix 🟡 should-fix issues.
 - `--nitpicks`: also fix 🟢 nitpicks.
 - `--all`: fix everything regardless of severity.
@@ -47,7 +47,7 @@ gh api graphql -f query='
 
 GitLab: `glab mr view`, `glab mr diff`, `glab api projects/:id/merge_requests/<number>/discussions`.
 
-Run the actual review dimensions from `/pr-review` (or `/review-diff` for uncommitted work) against the diff. Classify PR comments the same way `/pr-comments-resolve` does: 🔴 must-fix, 🟠 improve, 💬 question, 🤝 push back, 📦 follow-up, ✅ already addressed. Only 🔴 must-fix and 🟠 improve items are candidates for a code fix. Questions, pushback, and follow-ups are out of scope here, leave those for `/pr-comments-respond` or for the user to answer directly.
+Run the actual review dimensions from `/pr-review` (or `/diff-review` for uncommitted work) against the diff. Classify PR comments the same way `/pr-comments-resolve` does: 🔴 must-fix, 🟠 improve, 💬 question, 🤝 push back, 📦 follow-up, ✅ already addressed. Only 🔴 must-fix and 🟠 improve items are candidates for a code fix. Questions, pushback, and follow-ups are out of scope here, leave those for `/pr-comments-respond` or for the user to answer directly.
 
 ### 2. Build the fix queue
 
