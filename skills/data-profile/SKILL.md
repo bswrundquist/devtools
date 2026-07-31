@@ -1,5 +1,5 @@
 ---
-name: profile-dataset
+name: data-profile
 description: Use when meeting an unfamiliar table or dataset — produce a structured profile (grain, per-column stats, coverage, red flags) before building on it, writing quality checks for it, or debugging it. First move on any new data.
 tools: Bash, Read, Grep, Glob
 ---

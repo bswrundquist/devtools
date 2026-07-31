@@ -14,7 +14,7 @@ Take a solution design (from `/solution-design`), an issue, or an in-conversatio
 `$ARGUMENTS` — what to implement:
 
 - A path to a design file (`docs/designs/2026-07-02-retry-queue.html` or `.md`) — parse its work items and overview table.
-- An issue ref (same forms as `/executive-summary`) — fetch it and derive the plan.
+- An issue ref (same forms as `/issue-summary`) — fetch it and derive the plan.
 - Nothing — use the plan already established in this conversation.
 - `--no-branch` — stay on the current branch instead of creating one.
 

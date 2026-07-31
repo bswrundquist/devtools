@@ -1,5 +1,5 @@
 ---
-name: executive-summary
+name: issue-summary
 description: Use when the user wants a concise executive summary of an issue, epic, or ticket (GitHub, GitLab, or Jira) — what needs to be done, which repos are affected, and who the key persons are. One to two paragraphs written for stakeholders.
 tools: Bash, Read, Grep, Glob, WebFetch
 argument-hint: <issue ref, URL, or pasted text> [extra context]

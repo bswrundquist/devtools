@@ -7,7 +7,7 @@ argument-hint: <description of the issue> [--project <repo or key>] [--create]
 
 # Create Issue
 
-Turn a plain description into a well-formed issue in GitHub, GitLab, or Jira. This is step zero of the Issue -> Ship workflow: everything downstream (`/executive-summary`, `/solution-design`, `/implement`) reads the issue this produces, so the draft has to stand on its own as context, not just as a summary of what the user typed.
+Turn a plain description into a well-formed issue in GitHub, GitLab, or Jira. This is step zero of the Issue -> Ship workflow: everything downstream (`/issue-summary`, `/solution-design`, `/implement`) reads the issue this produces, so the draft has to stand on its own as context, not just as a summary of what the user typed.
 
 ## Arguments
 
@@ -79,7 +79,7 @@ jira issue list --plain --columns labels | tr ',' '\n' | sort -u
 jira project list
 ```
 
-**Find a sensible assignee or owner** (same trick as `/executive-summary`):
+**Find a sensible assignee or owner** (same trick as `/issue-summary`):
 
 ```bash
 cat .github/CODEOWNERS CODEOWNERS 2>/dev/null
@@ -147,7 +147,7 @@ After filing:
 Created: <url> (<key or #number>)
 ```
 
-Then offer the next step: `/executive-summary <ref>` for stakeholders, or `/solution-design <ref>` to go straight into planning.
+Then offer the next step: `/issue-summary <ref>` for stakeholders, or `/solution-design <ref>` to go straight into planning.
 
 ## Rules
 

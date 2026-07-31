@@ -125,5 +125,5 @@ If you can't write the action line, the check isn't ready to exist.
   scattered mid-pipeline.
 - Test the check: inject a known violation and confirm it fires before
   trusting it in production.
-- New datasets get profiled first (profile-dataset skill) — thresholds
+- New datasets get profiled first (data-profile skill) — thresholds
   guessed without a baseline are noise generators.

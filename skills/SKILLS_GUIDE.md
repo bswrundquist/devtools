@@ -33,7 +33,7 @@ You can type a slash command directly in the CLI:
 /uv-setup
 /env-setup
 /issue-create
-/executive-summary
+/issue-summary
 /solution-design
 /implement
 /study-session
@@ -584,7 +584,7 @@ description of a problem
    ▼
 issue/epic (GitHub · GitLab · Jira)
    │
-   ├─ /executive-summary   →  1-2 paragraphs for stakeholders
+   ├─ /issue-summary       →  1-2 paragraphs for stakeholders
    ├─ /solution-design     →  full HTML design doc (opens in browser)
    │        │
    │        ▼
@@ -619,7 +619,7 @@ issue/epic (GitHub · GitLab · Jira)
 
 ---
 
-### executive-summary
+### issue-summary
 **Purpose**: Concise 1–2 paragraph summary of an issue/epic/ticket for stakeholders
 
 **Arguments**: `<issue ref, URL, or pasted text> [extra context]` — accepts GitHub/GitLab URLs, `#42`, `owner/repo#42`, Jira keys (`PLAT-123`), or pasted issue bodies.
@@ -631,7 +631,7 @@ issue/epic (GitHub · GitLab · Jira)
 
 **Examples:**
 - "Give me an executive summary of PLAT-123"
-- "/executive-summary acme/api#42"
+- "/issue-summary acme/api#42"
 
 ---
 

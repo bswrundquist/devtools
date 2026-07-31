@@ -78,7 +78,7 @@ uncheckable contract is a wish.
 ## Adopting Contracts on an Existing Pipeline
 
 1. Write the contract for what the data **actually is today** (profile it
-   first — profile-dataset skill), not what it should be.
+   first — data-profile skill), not what it should be.
 2. Enforce in producer CI as warn-only; watch a week of violations.
 3. Fix or renegotiate the violating clauses, then flip to enforcing.
 4. Only then tighten toward what consumers actually need.

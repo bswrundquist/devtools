@@ -7,11 +7,11 @@ argument-hint: <issue ref, URL, or description> [--out <path>]
 
 # Solution Design
 
-Produce a full solution design — the thorough sibling of `/executive-summary`. The deliverable is a single self-contained HTML file: what will be done, in which repos, how it will be validated, what knowledge transfer is needed, and which details are still missing. Opens in the browser when done.
+Produce a full solution design — the thorough sibling of `/issue-summary`. The deliverable is a single self-contained HTML file: what will be done, in which repos, how it will be validated, what knowledge transfer is needed, and which details are still missing. Opens in the browser when done.
 
 ## Arguments
 
-`$ARGUMENTS` — an issue reference (same forms as `/executive-summary`: URL, `#42`, `acme/api#42`, `PLAT-123`) or a free-text description of the work.
+`$ARGUMENTS` — an issue reference (same forms as `/issue-summary`: URL, `#42`, `acme/api#42`, `PLAT-123`) or a free-text description of the work.
 
 - `--out <path>` — write the HTML to this path instead of the default location.
 
@@ -19,7 +19,7 @@ Produce a full solution design — the thorough sibling of `/executive-summary`.
 
 ### 1. Gather inputs
 
-- Fetch the issue and its comments (`gh issue view`, `glab issue view`, `jira issue view` — see `/executive-summary` for the exact commands).
+- Fetch the issue and its comments (`gh issue view`, `glab issue view`, `jira issue view` — see `/issue-summary` for the exact commands).
 - **Read the actual code** in the affected areas — entry points, current behavior, existing tests. A design written without reading the code is fiction.
 
 ```bash
@@ -38,7 +38,7 @@ Decide the approach. Note at least one alternative considered and why it lost. B
 
 Required sections, in this order:
 
-1. **Executive summary** — the `/executive-summary` shape: 1–2 paragraphs, repos, key persons.
+1. **Executive summary** — the `/issue-summary` shape: 1–2 paragraphs, repos, key persons.
 2. **Background & current state** — how it works today, with `file:line` references you actually read.
 3. **Proposed solution** — architecture, data flow, alternatives considered.
 4. **Work breakdown by repo** — per repo: what changes, new/modified files, interfaces.

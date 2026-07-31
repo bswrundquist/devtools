@@ -1,5 +1,5 @@
 ---
-name: triage-pipeline
+name: pipeline-triage
 description: Use when a data pipeline run failed or produced suspect output — a failed Airflow DAG, a stuck job, a table that looks wrong. Systematic triage to code/data/infra/upstream, impact assessment, and safe recovery (retry vs fix-forward vs backfill).
 tools: Bash, Read, Grep, Glob
 ---
@@ -41,7 +41,7 @@ final stack trace — orchestrator noise buries it). Classify:
 Failures have causes; "it just broke" means you haven't found it yet.
 
 - **Code**: deploys/merges to the pipeline repo since the last green run.
-- **Data**: input volume/schema today vs last green run (profile-dataset for
+- **Data**: input volume/schema today vs last green run (data-profile for
   a quick look; data-diff to compare runs).
 - **Infra**: platform incidents, quota changes, cluster events, credential
   or token expiry (a classic for "worked yesterday, nothing changed").

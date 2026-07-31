@@ -117,7 +117,7 @@ job.submit(service_account=PIPELINE_SA)      # dedicated SA, least privilege
    (GPUs/CPUs in region) or SA permissions (`iam.serviceAccounts.actAs`,
    GCS access to `pipeline_root`).
 3. Exit code 137 / "task terminated" → OOM: raise `set_memory_limit`, check
-   input size growth first (profile-dataset).
+   input size growth first (data-profile).
 4. Wrong results with green run → check for a stale cache hit before
    blaming the code: was this task cached from before the fix/data change?
 5. Reproduce outside the pipeline: run the component's inner function
