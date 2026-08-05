@@ -49,7 +49,6 @@ You can type a slash command directly in the CLI:
 Agents are autonomous subprocesses for multi-step tasks:
 ```
 /debugger       - trace and fix errors/failing tests
-/pr-writer      - create a GitHub PR or GitLab MR from current branch
 /repo-explorer  - produce a structured overview of an unfamiliar codebase
 ```
 
