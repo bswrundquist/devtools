@@ -36,6 +36,7 @@ You can type a slash command directly in the CLI:
 /issue-summary
 /solution-design
 /implement
+/pr-create
 /study-session
 /pr-comments-resolve
 /pr-comments-respond
@@ -610,7 +611,7 @@ Simply describe what you want to do, and Claude will automatically invoke the re
 
 ## Issue → Ship Workflow
 
-Eight skills that chain together to take a ticket from tracker to merged PR:
+Nine skills that chain together to take a ticket from tracker to merged PR:
 
 ```
 description of a problem
@@ -626,7 +627,10 @@ issue/epic (GitHub · GitLab · Jira)
    │        ▼
    ├─ /implement           →  typed code + tests, all green
    │        │
-   │        ▼  (PR/MR opened, review happens)
+   │        ▼
+   ├─ /pr-create           →  objective + chapters + acceptance criteria + links, opened as PR/MR
+   │        │
+   │        ▼  (review happens)
    │
    ├─ /pr-comments-resolve →  plan: fix / push back / reply-only
    │        ├─ /implement            →  apply the fixes
@@ -719,6 +723,24 @@ issue/epic (GitHub · GitLab · Jira)
 **Examples:**
 - "Study the docs/ folder and tell me what's missing"
 - "/study-session docs/ adr/ --focus deployment"
+
+---
+
+### pr-create
+**Purpose**: Open a concise, engineer-written PR/MR from the current branch — objective, sections shaped by the diff, acceptance criteria, links
+
+**Arguments**: `[--base <branch>] [--draft] [--reviewer <user>] [--create]` — drafts and previews only unless `--create` is passed
+
+**Key principles:**
+- Chapters are grouped and named for what they actually contain, not a flat "Changes" list — skipped entirely for small single-concern diffs
+- Acceptance criteria are independently checkable, drawn from tests/migrations/pipeline behavior actually in the diff
+- Links only what's actually found (issue refs, docs, stacked-PR base) — never invented
+- Tables for anything with 2+ parallel items; no filler, no AI-boilerplate phrasing
+- Never opens the PR/MR without `--create` or explicit confirmation
+
+**Examples:**
+- "Open a PR for this branch"
+- "/pr-create --draft --reviewer sam"
 
 ---
 
