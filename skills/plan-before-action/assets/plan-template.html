@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Task title — Work plan</title>
+  <style>
+    :root { color-scheme: light; font-family: system-ui, sans-serif; color: #17202a; background: #f3f5f7; }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-size: 17px; line-height: 1.6; }
+    main { max-width: 960px; margin: 2rem auto; padding: 2rem; background: #fff; }
+    h1, h2, h3 { line-height: 1.25; }
+    h1 { font-size: 2rem; margin-top: 0; }
+    h2 { font-size: 1.35rem; margin-top: 2rem; }
+    h3 { font-size: 1.1rem; }
+    p, li, td, th, dd { overflow-wrap: anywhere; }
+    a { color: #164e96; text-underline-offset: .15em; }
+    a:focus-visible, .table-wrap:focus-visible { outline: 3px solid #164e96; outline-offset: 4px; }
+    .meta { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; padding: 0; list-style: none; }
+    .decisions { border: 2px solid #8a4b00; padding: 1rem 1.25rem; background: #fff8eb; }
+    .decisions h2 { margin-top: 0; }
+    .table-wrap { overflow-x: auto; margin: 1rem 0; }
+    table { border-collapse: collapse; width: 100%; min-width: 620px; font-size: 1rem; }
+    caption { text-align: left; font-weight: 600; padding-bottom: .5rem; }
+    th, td { border: 1px solid #a9b3bd; padding: .7rem; text-align: left; vertical-align: top; }
+    th { background: #edf1f5; }
+    li + li { margin-top: .4rem; }
+    dt { font-weight: 700; margin-top: .7rem; }
+    dd { margin-left: 0; }
+    footer { border-top: 1px solid #a9b3bd; margin-top: 2rem; padding-top: 1rem; }
+    @media (max-width: 640px) {
+      main { margin: 0; padding: 1.25rem; }
+      h1 { font-size: 1.65rem; }
+    }
+    @media print {
+      @page { margin: 16mm; }
+      body { font-size: 11pt; background: #fff; color: #000; }
+      main { max-width: none; margin: 0; padding: 0; }
+      h1, h2, h3 { break-after: avoid; }
+      .decisions { background: #fff; border-color: #000; }
+      .table-wrap { overflow: visible; }
+      table { min-width: 0; table-layout: fixed; font-size: 9pt; }
+      thead { display: table-header-group; }
+      tr { break-inside: avoid; }
+      th, td { padding: .35rem; }
+      a { color: #000; }
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Task title</h1>
+    <ul class="meta" aria-label="Plan metadata">
+      <li><strong>Version:</strong> 1</li>
+      <li><strong>Date:</strong> Insert the actual plan date</li>
+      <li><strong>Status:</strong> Awaiting approval</li>
+    </ul>
+  </header>
+
+  <!-- Replace all instructional text with task-specific content before presenting. -->
+  <aside class="decisions" aria-labelledby="decisions-title">
+    <h2 id="decisions-title">Blockers and required decisions</h2>
+    <p>List material blockers and decisions, or state that none have been identified.</p>
+  </aside>
+
+  <section aria-labelledby="goal-title">
+    <h2 id="goal-title">Goal and proposed outcome</h2>
+    <p><strong>Goal:</strong> Describe what the user wants to accomplish and why.</p>
+    <p><strong>Deliverables:</strong> Describe the concrete result.</p>
+  </section>
+
+  <section aria-labelledby="scope-title">
+    <h2 id="scope-title">Scope and affected items</h2>
+    <p>Identify included work and relevant boundaries.</p>
+    <ul><li>Identify affected files, systems, records, people, or workflows.</li></ul>
+  </section>
+
+  <section aria-labelledby="findings-title">
+    <h2 id="findings-title">Current findings</h2>
+    <dl>
+      <dt>Verified facts</dt><dd>State only what has been verified; add useful source links.</dd>
+      <dt>Assumptions</dt><dd>State reasonable assumptions for the user's review.</dd>
+      <dt>Unresolved questions</dt><dd>Identify important unknowns and their implications.</dd>
+    </dl>
+  </section>
+
+  <section aria-labelledby="steps-title">
+    <h2 id="steps-title">Work steps</h2>
+    <div class="table-wrap" role="region" aria-label="Proposed steps, horizontally scrollable on small screens" tabindex="0">
+      <table>
+        <caption>Proposed actions after approval</caption>
+        <thead><tr><th scope="col">Step</th><th scope="col">Action and purpose</th><th scope="col">Dependencies</th><th scope="col">Expected result</th></tr></thead>
+        <tbody><tr><th scope="row">1</th><td>Describe the action and why it is needed.</td><td>Identify prior steps or inputs.</td><td>Describe the observable result.</td></tr></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section aria-labelledby="checks-title">
+    <h2 id="checks-title">Checks before proceeding</h2>
+    <ul><li>Identify missing inputs, access, dependencies, inconsistencies, and decisions; record actual check status.</li></ul>
+  </section>
+
+  <section aria-labelledby="validation-title">
+    <h2 id="validation-title">Validation</h2>
+    <ul><li>Define observable acceptance criteria and how completed work will be checked.</li></ul>
+    <p><strong>Planning checks performed:</strong> Record actual content and preview checks, plus any limitations. Do not claim future validation has passed.</p>
+  </section>
+
+  <section aria-labelledby="risks-title">
+    <h2 id="risks-title">Risks and recovery</h2>
+    <p>Describe material risks and rollback or recovery; explain any irreversible effects where applicable.</p>
+  </section>
+
+  <!-- Keep this section only for work intended to be sent or published. -->
+  <section aria-labelledby="publication-title">
+    <h2 id="publication-title">Content and final review before sending or publishing</h2>
+    <p>Show the exact proposed content where feasible, or specify that a draft will require separate review before sending.</p>
+    <ul>
+      <li>Audience or recipients: pending review.</li>
+      <li>Names, dates, and figures: pending review.</li>
+      <li>Links and attachments: pending review.</li>
+      <li>Sensitive information and unsupported claims: pending review.</li>
+    </ul>
+  </section>
+
+  <footer aria-labelledby="approval-title">
+    <h2 id="approval-title">Approval needed</h2>
+    <p>Specify exactly what approval of this plan version authorizes, including any sending or publishing. Identify any draft that needs further review.</p>
+    <p><strong>Execution is paused. Explicit approval is required; opening this file or requesting revisions does not authorize execution.</strong></p>
+  </footer>
+</main>
+</body>
+</html>
