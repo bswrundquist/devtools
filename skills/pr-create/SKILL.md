@@ -1,13 +1,13 @@
 ---
 name: pr-create
-description: Use when the user wants to open a pull request (GitHub) or merge request (GitLab) from the current branch. Produces a concise, engineer-written PR — an objective, sections shaped by what actually changed, an acceptance criteria checklist, and links to anything involved. Tables and lists over prose.
+description: Use when the user wants to open a pull request (GitHub) or merge request (GitLab) from the current branch. Produces a concise, engineer-written PR with an objective, sections shaped by the diff, a practical Try it walkthrough, acceptance criteria, and relevant links. Tables and lists over prose.
 tools: Bash, Read, Grep, Glob
-argument-hint: [--base <branch>] [--draft] [--reviewer <user>] [--create]
+argument-hint: "[--base <branch>] [--draft] [--reviewer <user>] [--create]"
 ---
 
 # Create PR
 
-Open a pull request (GitHub) or merge request (GitLab) for the current branch. The output should read like a competent engineer wrote it in three minutes flat: an objective, a handful of sections shaped by what the diff actually contains, a checklist a reviewer can verify against, and links to whatever else is involved. No filler, no restating the diff as prose.
+Open a pull request (GitHub) or merge request (GitLab) for the current branch. The output should read like a competent engineer wrote it in three minutes flat: an objective, a handful of sections shaped by what the diff actually contains, a practical walkthrough for reviewers to try the change, a checklist they can verify against, and links to whatever else is involved. No filler, no restating the diff as prose.
 
 ## Arguments
 
@@ -54,7 +54,7 @@ Don't default to a flat "Changes" bullet list. Group the changed files/commits b
 
 | Diff shape | Chapter(s) |
 |---|---|
-| One concern, one commit, < ~5 files | Skip chapters — Objective, then a single short table/list, then Acceptance Criteria |
+| One concern, one commit, < ~5 files | Skip chapters — Objective, then a single short table/list, Try it, and Acceptance Criteria |
 | Schema/model change + the code that uses it | Separate chapters: e.g. `Schema`, `Query Changes` |
 | New DAG/pipeline + config + tests | `Pipeline`, `Configuration`, `Testing` |
 | Refactor + behavior change | `Refactor` chapter first (mechanical, low-risk to review), then the behavior change |
@@ -86,7 +86,24 @@ Pull these from what the diff and tests actually demonstrate, not from wishful t
 
 Each item must be something a reviewer can check without re-reading the whole diff.
 
-### 7. Preview, then open only on confirmation
+### 7. Write a reviewer walkthrough
+
+Every PR/MR must include `## Try it`: a short, practical path for a reviewer to see and exercise the change interactively. This supplements unit tests, type checking, and lint; report those automated checks and their results under `Testing`.
+
+- Read the relevant Makefile, README, Docker/Compose configuration, launch scripts, and changed artifacts to find the supported workflow. Prefer an existing `make <target>` that handles setup and launch, often through Docker or Docker Compose. If no suitable target exists, use the actual project commands. Do not invent targets or add infrastructure just to draft the PR.
+- Give the working directory, necessary prerequisites and sample data, then copyable setup/launch commands. Use a small local example or fixture when available.
+- Say exactly what to open and what to do there, with an observable result tied to the change. Starting a container or server alone is not a walkthrough.
+
+| Review surface | What the walkthrough should enable |
+|---|---|
+| HTML report or design | Generate it if needed, open the exact file in a browser, and inspect the changed content or interaction. |
+| Jupyter training notebook | Start the supported notebook environment, open the named notebook, run the relevant cells with sample data, and inspect the expected metrics or plots. |
+| App or service | Launch the local stack, open the exact URL or API explorer, exercise the changed flow with concrete inputs, and check the visible result. |
+
+- Include how to stop services or clean up generated state when needed. State which steps were actually exercised and which remain unverified; do not claim a manual check passed just because tests passed.
+- If there is no interactive surface, give the closest useful manual inspection of the changed behavior or artifact. If no meaningful manual check exists, keep `Try it` and explain why briefly. Automated checks alone do not fulfill this section.
+
+### 8. Preview, then open only on confirmation
 
 Print the full draft (see Output Format). Only run the create command if `--create` was passed or the user confirms in chat.
 
@@ -102,7 +119,7 @@ Report the created PR/MR URL back.
 
 ## Output Format
 
-```markdown
+````markdown
 ## Objective
 <1-3 sentences: what changed and why, plain language. No "This PR introduces...".>
 
@@ -114,6 +131,20 @@ Report the created PR/MR URL back.
 ## <Another Chapter Name>
 - <point, when a table doesn't fit the content>
 
+## Try it
+
+1. From `<working directory>`, with `<required prerequisites and sample data>`:
+
+   ```bash
+   <existing make target, or exact setup and launch commands>
+   ```
+
+2. Open `<exact URL, HTML file, or notebook>` and `<specific interaction or cells to run>`.
+3. Confirm `<observable result tied to this change>`.
+4. <Stop services or clean up, if needed.>
+
+- Verified: <steps actually exercised; identify any unverified steps>.
+
 ## Acceptance Criteria
 - [ ] <concrete, independently checkable>
 - [ ] <concrete, independently checkable>
@@ -123,7 +154,7 @@ Report the created PR/MR URL back.
 |---|---|---|
 | Issue | #123 | closes |
 | Doc | `docs/designs/2026-08-01-retry.html` | design this implements |
-```
+````
 
 Omit "Related" entirely if nothing was found — don't print an empty table.
 
@@ -135,9 +166,9 @@ Imperative mood, under 70 characters, states the most important change — not a
 
 - Every claim comes from the diff, commits, or something actually read — never describe behavior that isn't confirmed by the code.
 - Chapters are named for what they contain (`Schema`, `Backfill`, `Testing`) — never generic (`Changes`, `Updates`, `Misc`).
-- Tables for anything with 2+ parallel items (files, links). Plain bullets when a table would be one column wide. Prose only for the Objective.
+- Tables for anything with 2+ parallel items (files, links). Plain bullets when a table would be one column wide; numbered steps and fenced commands for `Try it`. Prose only for the Objective or a brief explanation when no manual check applies.
 - Acceptance criteria are checkable by someone who wasn't in this conversation — "tests pass" is not a criterion, "P95 on `/checkout` stays under 200ms under the existing load test" is.
-- Write like a person: no em dashes, no "leverage"/"utilize"/"seamless", no restating the diff as a sentence per file, no padding a thin PR to look substantial. A three-file fix gets a three-line PR.
+- Write like a person: no em dashes, no "leverage"/"utilize"/"seamless", no restating the diff as a sentence per file, no padding a thin PR to look substantial. A small fix gets a brief description and a compact walkthrough.
 - Never open the PR/MR without `--create` or explicit confirmation in chat.
 - Don't push the branch — if it has no upstream, stop and point at `/push`.
 - Detect the base branch; don't assume `main`.
